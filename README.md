@@ -7,11 +7,11 @@
     <img alt="bootstrap" src="https://img.shields.io/badge/Expo-v51.0.28-yellow">
     <img alt="node" src="https://img.shields.io/badge/React_Native-v0.74.5-yellow">
     <br />
-    <img alt="php" src="https://img.shields.io/badge/Material_UI-blue">
+    <img alt="php" src="https://img.shields.io/badge/Redux_Toolkit-blue">
     <img alt="mysql" src="https://img.shields.io/badge/SQLite-blue">
-    <img alt="html" src="https://img.shields.io/badge/HTML-blue">
+    <img alt="html" src="https://img.shields.io/badge/JSX-blue">
     <img alt="javascript" src="https://img.shields.io/badge/Javascript-blue">
-    <img alt="jquery" src="https://img.shields.io/badge/CSS-blue">
+    <img alt="jquery" src="https://img.shields.io/badge/Stylesheet-blue">
 </p>
 <br/>
 
@@ -28,7 +28,9 @@ It use EXPO as framework and SQLite to manage all data.
 │   ├── /
 │   ├── assets/
 |   |── components/
-│   ├── pages/
+|   |── redux/
+│   ├── screens/
+|   |── utils/
 |   └── ...
 ├── App.js
 ├── package.json
@@ -49,7 +51,7 @@ npm install
 npm run start:tunnel
 ```
 
-## 📈 Testings
+## 📈 Testings (in progress)
 
 To run unit testings need to follow the different commands and instructions:
 
@@ -61,6 +63,10 @@ npm run test
 
 ## 🔍 Interesting links
 
-&nbsp;&nbsp;&nbsp;&nbsp;➡ [Material UI](https://mui.com/material-ui/getting-started/usage/)
+&nbsp;&nbsp;&nbsp;&nbsp;➡ [Redux Toolkit](https://redux-toolkit.js.org/)
 <br />
-&nbsp;&nbsp;&nbsp;&nbsp;➡ [Another link](https://getbootstrap.com/)
+&nbsp;&nbsp;&nbsp;&nbsp;➡ [SQLite](https://docs.expo.dev/versions/latest/sdk/sqlite/)
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;➡ [Testing Library](https://testing-library.com/docs/)
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;➡ [React Native Paper](https://callstack.github.io/react-native-paper/)
