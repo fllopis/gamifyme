@@ -5,6 +5,11 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialIcons, FontAwesome6 } from "@expo/vector-icons";
 import { Switch } from "react-native-paper";
+import { THEME_DEFAULT } from "@env";
+import "./src/i18n";
+import { useTranslation } from "react-i18next";
+
+import localStorage from "./src/utils/localStorage.js";
 
 //Redux
 import { Provider, useSelector, useDispatch } from "react-redux";
@@ -13,6 +18,7 @@ import { setTheme } from "./src/redux/themeSlice.js";
 
 //Utils
 import { getThemeColor } from "./src/utils/utils.js";
+import { myDefaultTheme, myDarkTheme } from "./src/assets/themes/customThemes.js";
 
 import HomeScreen from "./src/screens/home/index.jsx";
 import GamificationsScreen from "./src/screens/gamifications/index.jsx";
@@ -25,13 +31,39 @@ import SettingsScreen from "./src/screens/settings/index.jsx";
 const AppWithNavigation = () => {
   //Default vars
   const [isThemeLight, setIsThemeLight] = useState(false);
+  const [themeSelected, setThemeSelected] = useState(myDefaultTheme);
+  const Tab = createBottomTabNavigator();
+  const { t } = useTranslation();
+
+  //Redux data
   const dispatch = useDispatch();
   const theme = useSelector((state) => state.theme.theme);
-  const Tab = createBottomTabNavigator();
 
+  //On first load we take the values storaged.
+  useEffect(() => {
+    getStorageTheme();
+  }, []);
+
+  //Setting the isThemeLight
   useEffect(() => {
     setIsThemeLight(theme === "light");
   }, [theme]);
+
+  //Function to get theme storage and save it.
+  const getStorageTheme = async () => {
+    await localStorage.get("theme").then((data) => {
+      if (data) {
+        setThemeSelected(data === "light" ? myDefaultTheme : myDarkTheme);
+        dispatch(setTheme(data));
+        setIsThemeLight(data === "light");
+      } else {
+        localStorage.add({ theme: THEME_DEFAULT });
+        dispatch(setTheme(THEME_DEFAULT));
+        setIsThemeLight(THEME_DEFAULT === "light");
+        setThemeSelected(THEME_DEFAULT === "light" ? myDefaultTheme : myDarkTheme);
+      }
+    });
+  };
 
   /**
    * Function that return the correct icon in base to screen.
@@ -70,16 +102,21 @@ const AppWithNavigation = () => {
   };
 
   /**
-   * Function to change between dark or light
+   * Function to change between dark or light and store localy
    * @param {boolean} e - With true or false if is checked
    * @return nothing
    */
-  const onChangeMode = (e) => {
-    dispatch(setTheme(e ? "light" : "dark"));
+  const onChangeMode = async (e) => {
+    const newTheme = e ? "light" : "dark";
+
+    dispatch(setTheme(newTheme));
+
+    //Storing theme value
+    await localStorage.add(newTheme, "theme", false);
   };
 
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={themeSelected}>
       {/* BOTTOM NAVIGATOR */}
       <Tab.Navigator
         screenOptions={({ route }) => ({
@@ -105,19 +142,6 @@ const AppWithNavigation = () => {
           },
           headerTitle: () => "",
           headerLeft: () => (
-            <TouchableOpacity>
-              <FontAwesome6
-                name="user-circle"
-                color={getThemeColor({
-                  theme,
-                  getConstrast: true,
-                })}
-                size={25}
-                style={{ marginLeft: 15 }}
-              />
-            </TouchableOpacity>
-          ),
-          headerRight: () => (
             <Switch
               value={isThemeLight}
               color={isThemeLight ? "#f5f5f5" : "#666666"}
@@ -128,27 +152,40 @@ const AppWithNavigation = () => {
               }}
             />
           ),
+          headerRight: () => (
+            <TouchableOpacity>
+              <FontAwesome6
+                name="user-circle"
+                color={getThemeColor({
+                  theme,
+                  getConstrast: true,
+                })}
+                size={25}
+                style={{ marginRight: 15 }}
+              />
+            </TouchableOpacity>
+          ),
         })}
       >
         <Tab.Screen
+          name="Settings"
+          component={SettingsScreen}
+          options={{ tabBarLabel: t("bottomTab.settings") }}
+        />
+        <Tab.Screen
           name="Home"
           component={HomeScreen}
-          options={{ tabBarLabel: "Inicio" }}
+          options={{ tabBarLabel: t("bottomTab.home") }}
         />
         <Tab.Screen
           name="Gamifications"
           component={GamificationsScreen}
-          options={{ tabBarLabel: "Gamificaciones" }}
+          options={{ tabBarLabel: t("bottomTab.gamifications") }}
         />
         <Tab.Screen
           name="History"
           component={HistoryScreen}
-          options={{ tabBarLabel: "Historial" }}
-        />
-        <Tab.Screen
-          name="Settings"
-          component={SettingsScreen}
-          options={{ tabBarLabel: "Ajustes" }}
+          options={{ tabBarLabel: t("bottomTab.history") }}
         />
       </Tab.Navigator>
       <StatusBar style={isThemeLight ? "dark" : "light"} />

@@ -2,16 +2,16 @@
 
 <h1 align="center">GAMIFYME</h1>
 <p align="center">
-    <img alt="php" src="https://img.shields.io/badge/Node-v20.17.0-yellow">
-    <img alt="mariadb" src="https://img.shields.io/badge/NPM-v18.8.2-yellow">
-    <img alt="bootstrap" src="https://img.shields.io/badge/Expo-v51.0.28-yellow">
-    <img alt="node" src="https://img.shields.io/badge/React_Native-v0.74.5-yellow">
+    <img alt="Node" src="https://img.shields.io/badge/Node-v20.17.0-yellow">
+    <img alt="NPM" src="https://img.shields.io/badge/NPM-v18.8.2-yellow">
+    <img alt="Expo" src="https://img.shields.io/badge/Expo-v51.0.28-yellow">
+    <img alt="React Native" src="https://img.shields.io/badge/React_Native-v0.74.5-yellow">
     <br />
-    <img alt="php" src="https://img.shields.io/badge/Redux_Toolkit-blue">
-    <img alt="mysql" src="https://img.shields.io/badge/SQLite-blue">
-    <img alt="html" src="https://img.shields.io/badge/JSX-blue">
+    <img alt="Redux Toolkit" src="https://img.shields.io/badge/Redux_Toolkit-blue">
+    <img alt="SQLite" src="https://img.shields.io/badge/SQLite-blue">
+    <img alt="JSX" src="https://img.shields.io/badge/JSX-blue">
     <img alt="javascript" src="https://img.shields.io/badge/Javascript-blue">
-    <img alt="jquery" src="https://img.shields.io/badge/Stylesheet-blue">
+    <img alt="ji18nquery" src="https://img.shields.io/badge/i18n-blue">
 </p>
 <br/>
 
