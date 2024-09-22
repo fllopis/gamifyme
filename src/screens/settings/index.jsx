@@ -1,8 +1,8 @@
-import { StyleSheet, Text, View } from "react-native";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
 
-//Utils
-import { getThemeColor } from "../../utils/utils";
+import { Text } from "react-native";
+import { useSelector } from "react-redux";
+import { Card, TextInput } from "react-native-paper";
 
 /**
  * Function that return the JSX for SettingsScreen
@@ -10,21 +10,24 @@ import { getThemeColor } from "../../utils/utils";
  */
 const SettingsScreen = () => {
   const theme = useSelector((state) => state.theme.theme);
-  const themeColor = getThemeColor({ theme });
+  const [text, setText] = useState("");
 
   return (
-    <View style={[styles.container, { backgroundColor: themeColor }]}>
-      <Text>SETTINGS - {theme}</Text>
-    </View>
+    <>
+      <Card style={{ marginVertical: 20, marginHorizontal: 15 }}>
+        <Card.Title title="Información personal" />
+        <Card.Content>
+          <TextInput
+            mode="outlined"
+            label="Nombre de usuario"
+            placeholder=""
+            onChangeText={(newText) => console.log("text", newText)}
+            right={<TextInput.Affix text="/100" />}
+          />
+        </Card.Content>
+      </Card>
+    </>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
 
 export default SettingsScreen;
